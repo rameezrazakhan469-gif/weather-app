@@ -92,3 +92,14 @@ input se shaher mila ab us shaher ke lioye poora weather process chalado
 ab chunki units change ho rhi hai hard coded nhi hai isiliye renderweather mein humne variable liye aur unhi ko aagye humne use kiya jese jese upar demand change hogi vese vese unit variable ki value change hogi aur vese vese innerhtml mein saamne output mein likh ke aayegi.
 
 loadsavedweather fn banaya gaya hai taaki app khulte hi pichli baar vala shaher apne aap load ho jaaye  iske liye kisi click event ki zaroorat nhi hai page khulte hi last vala preference poore weather procees ke saath load ho jaayega, pichli saved city ko restore kr rha hai.
+
+#### day7
+day 6 ki kamiyan => 1,temp ko round krna = math.round()use kiya. 2, unit tabhi save ho jab naya weather data safaltapoorvak aa jaaye. 3, input mein nayi city aur purani current city. 4, formatting
+1, current weather. 2, 5 day forecast(din ka naam, weather icon, daily min max temp,).
+-- do request ek saath kese chalti hai,
+get weather vaale fn ki tarah humne getforecast vala fn banaya same aur usme forecast api ki poori process same as it weather vaale ki tarah krdi same unit chahiye thi isiliye dono mein same unit krdi.
+-- toggle event ko update kara = yahan naya city input mein likha hai toh usi ka weather fetch hoga, khali input hone per pichli successful city istemal hogi.
+forecast vala kaam - sabse imp
+-- // forecast ko din ke hisaab se group karna = is line ko code mein smjh lo
+aise hi renderforecast banana hoga render weather ki tarah
+- sabse main hai groupforecastbyday(forecast) = pehle raw forecast entries ko daily summaries mein badalta hai 
