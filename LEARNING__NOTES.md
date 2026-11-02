@@ -103,3 +103,9 @@ forecast vala kaam - sabse imp
 -- // forecast ko din ke hisaab se group karna = is line ko code mein smjh lo
 aise hi renderforecast banana hoga render weather ki tarah
 - sabse main hai groupforecastbyday(forecast) = pehle raw forecast entries ko daily summaries mein badalta hai 
+
+Samajh check (bina code dekhe, apne shabdon mein jawab do):
+
+1,item.dt + forecast.city.timezone kyun, aur getUTCHours() kyun, getHours() kyun nahi?
+2,T12:00:00Z aur timeZone: "UTC" dono kyun chahiye weekday ke liye?
+3,Promise.all do await ke mukable kya deta hai, aur ek request fail ho jaye to kya hota hai?

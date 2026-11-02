@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <main class="app-card">
     <form id="weatherForm">
         <input
             id="city"
@@ -31,11 +33,12 @@
 
     
 
-    <div id="result"> </div>
+    <div id="result" aria-live="polite"></div> <!-- इसका काम screen reader को बताना है कि इस जगह का content बदलने पर नए result की सूचना दी जा सकती है, बिना उपयोगकर्ता को अचानक बाधित किए। -->
 
     <section id="forecast" aria-label="5-Day weather
           Forecast">
     </section>
+    </main>
     
     <script src="config.js"></script>
     <script src="script.js"></script>

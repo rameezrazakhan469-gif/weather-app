@@ -58,11 +58,12 @@ async function showWeatherForCity(city, requestedUnit = unit) {
     searchBtn.disabled = true;
     unitToggle.disabled = true;
     result.textContent = "Loading...";
+    document.querySelector("#forecast").replaceChildren();
     
     try {
        const [current, forecast] = await Promise.all([
         getWeather(city, requestedUnit),
-        getforecast(city, requestedUnit)
+        getForecast(city, requestedUnit)
        ]);
 
        renderWeather(current, requestedUnit);
@@ -81,6 +82,8 @@ localStorage.setItem("lastCity", city);
 
 //error handle karna
        } catch (error) {
+        result.classList.add("error"); //error आने पर error वाली CSS लागू होगी।
+        document.querySelector("#forecast").replaceChildren();
         if (error.message === "CITY_NOT_FOUND") {
             result.textContent = "City not found.";
         } else {
@@ -96,9 +99,6 @@ finally {
     unitToggle.disabled = false;
 }
 
-// temporary console log for debugging
- const days = groupForecastByDay(forecast);
- console.log("Grouped Forecast:", days);
 }
 
 
@@ -128,7 +128,7 @@ async function getWeather(city, requestedUnit = unit) {
 }
 
 
-async function getforecast(city, requestedUnit = unit) {
+async function getForecast(city, requestedUnit = unit) {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=${requestedUnit}`;
 
         const response = await fetch(url);
@@ -191,21 +191,28 @@ function groupForecastByDay(forecast) {
 // API data ko page per dikhana
     function renderWeather(data, requestedUnit = unit) { // requestedUnit use ki kyunki jis unit mein request ki gayi thi ussi unit mein data dikhana chahiye
         const iconCode = data.weather[0].icon;
+        const condition = data.weather[0].main.toLowerCase(); // API मौसम का नाम देती है, जैसे "Clear", "Clouds" या "Rain"। - data.weather[0].main → API से मौसम का नाम। - .toLowerCase() → नाम को छोटे अक्षरों में बदलता है। जैसे "Clear" → "clear"। - condition → उस नाम को रखने वाला variable।
+        document.body.className = condition; // यह <body> की class को मौसम के नाम के बराबर कर देती है। उदाहरण: अगर मौसम "Clouds" है, तो class "clouds" हो जाएगी।
+
 
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
         const temperatureUnit = requestedUnit === "metric" ? "°C" : "°F";
         const windUnit = requestedUnit === "metric" ? "m/s" : "mph";
 
+        result.classList.remove("error"); // अगली सफल search पर error वाली styling हट जाएगी।
+
         result.innerHTML = `
+         <article class="weather-card">
             <h2>${data.name}</h2>
             <img src="${iconUrl}" alt="${data.weather[0].description}">
             <p>Temperature: ${Math.round(data.main.temp)} ${temperatureUnit}</p>
             <p>Feels like: ${Math.round(data.main.feels_like)} ${temperatureUnit}</p>
             <p>Weather: ${data.weather[0].description}</p>
             <p>Humidity: ${data.main.humidity}%</p>
-            <p>Wind speed: ${Math.round(data.wind.speed)} ${windUnit}</p>`;
-    }
+            <p>Wind speed: ${Math.round(data.wind.speed)} ${windUnit}</p>;
+        </article>
+    `}
 
 
     
@@ -235,6 +242,8 @@ function groupForecastByDay(forecast) {
 
         const forecastContainer = document.querySelector("#forecast");
 
+        forecastContainer.replaceChildren();
+
         forecastContainer.innerHTML = cards.join(""); // ye cards array ke saare elements ko ek string mein join karega taki hum innerHTML mein set kar sakein
     } // ek hi baar mein saare cards container mein render ho jaate hai
     // yeh code maan kar chalta hai ki forecastContainer hamesha available hai, agar ye element page mein nahi hai to error aayega. isliye humne index.html mein forecast section add kiya hai taki ye code sahi se kaam karein
@@ -260,6 +269,10 @@ async function loadSavedWeather() {
 }    
 
 loadSavedWeather();
+
+
+
+
  
         
 
