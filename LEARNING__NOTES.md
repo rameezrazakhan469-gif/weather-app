@@ -1,7 +1,11 @@
+parameter = fn ko bahar se milne vaali jaankari ke liye bnaayi gyi jagah.
+argument = fn chalate samay di gyio asli value.
 await = request ka result milne tak async fn ke agle kadam ko rokta hai
 response.ok = http response safal status mein ha ya nhi
 return per api request nhi bheji jati hai.
 Koi fn khud se nhi chalta usey kahin se call karna padhta hai lekin har function ko chalane ke liye event hona zaroori nhi hai.
+
+result.classlist.add("error") => result - html ka voh element jahan mausam dikhta hai, .classlist - us element ki css classes ko access krne ka tareeka, .add() - nayi css class jodne ka method, "error" - us css class ka naam jise jodna hai. 
 
 # day4
 {console.log("city:", data.name);} hum yeh likh rhe the iski jagah ab hum [return data;] yeh likhenge issey fn apna poora data apne caller ko vapas deta hai. phir dusra function us data ko use kr sta hai apne kaam ke liye.
@@ -109,3 +113,21 @@ Samajh check (bina code dekhe, apne shabdon mein jawab do):
 1,item.dt + forecast.city.timezone kyun, aur getUTCHours() kyun, getHours() kyun nahi?
 2,T12:00:00Z aur timeZone: "UTC" dono kyun chahiye weekday ke liye?
 3,Promise.all do await ke mukable kya deta hai, aur ek request fail ho jaye to kya hota hai?
+1= item.dt api ke har eh forecast record ka timestamp hai, timestamp mtlb kisi define time ko ek digit mein dikhana.
+ex, item.dt = 1793696400;
+
+1= forecast.city.timezone yeh api duara di gyi us city ki timezone offset hai sec mein hota hai 
+
+function groupForecastByDay = hmare weather app mein paanch dino ke 5 cards dikhane hai, na ki har 3 ghante ke baad ek alag card.
+
+isiliye hum 
+
+ ek hi tareekh ke sabhi mausam ke records ko ek hi jagah rakhna hai
+ us din ka sbse km temp nikalna hai
+ us din ka sbse zyada temp nikalna hai
+ us din ka ek mausam icon chunna hai
+
+ for (const item of forecast.list) {= is ki jagah yeh bhi likh skte hai = for (let i = 0; i < forecast.list.length; i++) {
+    const item = forecast.list[i];w
+ }
+ 
